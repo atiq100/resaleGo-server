@@ -17,11 +17,20 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run(){
     try{
         const usersCollection = client.db('resaleGo').collection('users');
+        const bikeCategoriesCollection = client.db('resaleGo').collection('bike-categories');
 
         app.post('/users',async(req,res)=>{
             const user = req.body;
             const result = await usersCollection.insertOne(user)
             res.send(result);
+        })
+
+        // bike categories
+        app.get('/bike-categories',async(req,res)=>{
+            const query = {}
+            const bikeCategories = await bikeCategoriesCollection.find(query).toArray()
+            res.send(bikeCategories);
+
         })
     }
     finally{
