@@ -55,12 +55,32 @@ async function run(){
             const options = {upsert: true};
             const updatedDoc={
                 $set:{
-                    role:'admin'
+                    userType:'admin',
+                    
                 }
             }
             const result = await usersCollection.updateOne(filter,updatedDoc,options)
             res.send(result)
         })
+
+        app.put('/users/verify/:id', async(req,res)=>{
+            
+
+            const id = req.params.id;
+            const filter = {_id: ObjectId(id)}
+            const options = {upsert: true};
+            const updatedDoc={
+                $set:{
+                    
+                    isVarified:'varified'
+                }
+            }
+            const result = await usersCollection.updateOne(filter,updatedDoc,options)
+            res.send(result)
+        })
+
+
+        
 
         // bike categories
         app.get('/bike-categories',async(req,res)=>{
