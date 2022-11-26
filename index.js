@@ -47,20 +47,20 @@ async function run(){
         })
 
 
-        // app.put('/users/admin/:id', async(req,res)=>{
+        app.put('/users/admin/:id', async(req,res)=>{
             
 
-        //     const id = req.params.id;
-        //     const filter = {_id: ObjectId(id)}
-        //     const options = {upsert: true};
-        //     const updatedDoc={
-        //         $set:{
-        //             role:'admin'
-        //         }
-        //     }
-        //     const result = await usersCollection.updateOne(filter,updatedDoc,options)
-        //     res.send(result)
-        // })
+            const id = req.params.id;
+            const filter = {_id: ObjectId(id)}
+            const options = {upsert: true};
+            const updatedDoc={
+                $set:{
+                    role:'admin'
+                }
+            }
+            const result = await usersCollection.updateOne(filter,updatedDoc,options)
+            res.send(result)
+        })
 
         // bike categories
         app.get('/bike-categories',async(req,res)=>{
@@ -99,7 +99,7 @@ async function run(){
         
         const query = {category_id: category_id}
         const allBike = await allBikeCategoriesCollection.find(query).toArray()
-        console.log(allBike);
+        //console.log(allBike);
             res.send(allBike)
        })
 
