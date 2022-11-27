@@ -33,6 +33,13 @@ async function run(){
             res.send(result);
         })
 
+        app.get('/bookings',async(req,res)=>{
+            const email = req.query.email
+            const query = {email: email};
+            const book = await bookingCollection.find(query).toArray()
+            res.send(book);
+        })
+
         app.post('/bookings',async(req,res)=>{
             const book = req.body;
             const result = await bookingCollection.insertOne(book)
@@ -51,6 +58,13 @@ async function run(){
             const query = {email}
             const user = await usersCollection.findOne(query);
             res.send({isSeller: user?.userType === 'Seller'})
+        })
+
+        app.get('/users/buyer/:email',async(req,res)=>{
+            const email = req.params.email;
+            const query = {email}
+            const user = await usersCollection.findOne(query);
+            res.send({isBuyer: user?.userType === 'Buyer'})
         })
 
 
