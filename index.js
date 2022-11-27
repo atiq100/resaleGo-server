@@ -19,6 +19,7 @@ async function run(){
         const usersCollection = client.db('resaleGo').collection('users');
         const bikeCategoriesCollection = client.db('resaleGo').collection('bike-categories');
         const allBikeCategoriesCollection = client.db('resaleGo').collection('allBike');
+        const bookingCollection = client.db('resaleGo').collection('bookings');
 
         app.get('/users',async(req,res)=>{
             const query ={}
@@ -29,6 +30,12 @@ async function run(){
         app.post('/users',async(req,res)=>{
             const user = req.body;
             const result = await usersCollection.insertOne(user)
+            res.send(result);
+        })
+
+        app.post('/bookings',async(req,res)=>{
+            const book = req.body;
+            const result = await bookingCollection.insertOne(book)
             res.send(result);
         })
 
