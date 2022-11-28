@@ -135,6 +135,7 @@ async function run(){
 
         //bike resale details
         app.get('/all-bikes',async(req,res)=>{
+           
             const query={}
             // if(req.query.category){
             //     query = {
@@ -149,6 +150,13 @@ async function run(){
             const allBike = await allBikeCategoriesCollection.find(query).toArray()
             res.send(allBike)
         })
+        app.get('/all-bikes/:id',async(req,res)=>{
+            const id = req.params.id;
+            const query = {_id:ObjectId(id)}
+            const allBike = await allBikeCategoriesCollection.findOne(query)
+            res.send({isAdvertise: allBike?.advertise === 'advertisement'})
+        })
+
        app.get('/all-bikes/:category_id',async(req,res)=>{
         const category_id = req.params.category_id
         
