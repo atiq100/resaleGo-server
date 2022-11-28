@@ -134,22 +134,22 @@ async function run(){
         })
 
         //bike resale details
-        app.get('/all-bikes',async(req,res)=>{
+        // app.get('/all-bikes',async(req,res)=>{
            
-            const query={}
-            // if(req.query.category){
-            //     query = {
-            //         category: req.query.category
-            //     }
-            // }
-            // if(req.query.category_id){
-            //     query = {
-            //         category_id: req.query.category_id
-            //     }
-            // }
-            const allBike = await allBikeCategoriesCollection.find(query).toArray()
-            res.send(allBike)
-        })
+        //     const query={}
+        //     // if(req.query.category){
+        //     //     query = {
+        //     //         category: req.query.category
+        //     //     }
+        //     // }
+        //     // if(req.query.category_id){
+        //     //     query = {
+        //     //         category_id: req.query.category_id
+        //     //     }
+        //     // }
+        //     const allBike = await allBikeCategoriesCollection.find(query).toArray()
+        //     res.send(allBike)
+        // })
         app.get('/all-bikes/:id',async(req,res)=>{
             const id = req.params.id;
             const query = {_id:ObjectId(id)}
@@ -166,10 +166,23 @@ async function run(){
             res.send(allBike)
        })
 
+       app.get('/all-bikes',async(req,res)=>{
+        const email = req.query.email
+        const query = {email: email};
+        const allBike = await allBikeCategoriesCollection.find(query).toArray()
+        res.send(allBike);
+    })
+
         app.post('/all-bikes',async(req,res)=>{
             const query = req.body
             const allBike = await allBikeCategoriesCollection.insertOne(query)
             res.send(allBike)
+        })
+        app.delete('/all-bikes/:id', async(req,res)=>{
+            const id = req.params.id;
+            const query={_id: ObjectId(id)}
+            const result = await allBikeCategoriesCollection.deleteOne(query);
+            res.send(result)
         })
     }
     finally{
