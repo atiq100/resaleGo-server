@@ -74,6 +74,13 @@ async function run(){
             res.send({isSeller: user?.userType === 'Seller'})
         })
 
+        app.get('/users/buyer',async(req,res)=>{
+            const userType = req.query.userType;
+            const query = {userType:userType};
+            const user = await usersCollection.find(query).toArray()
+            res.send(user)
+        })
+
         app.get('/users/buyer/:email',async(req,res)=>{
             const email = req.params.email;
             const query = {email}
